@@ -21,8 +21,8 @@ const Header = () => {
   const handleRedirect = () => {
     const redirectUrl = new URL("https://www.strava.com/oauth/authorize/");
     const params = new URLSearchParams({
-      client_id: import.meta.env.VITE_STRAVA_CLIENT_ID,
-      redirect_uri: import.meta.env.VITE_REDIRECT_URI,
+      client_id: "103399",
+      redirect_uri: "https://exerciselog-324bd.web.app/",
       response_type: "code",
       approval_prompt: "force",
       scope: "read_all,activity:read_all,profile:read_all",

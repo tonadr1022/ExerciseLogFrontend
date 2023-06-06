@@ -41,7 +41,7 @@ const HomePage = () => {
     status,
   } = useInfiniteQuery(["all_exercises"], getAllExercises, {
     getNextPageParam: (lastPage) => {
-      return lastPage?.next.slice(-1);
+      return lastPage?.next?.slice(-1);
     },
     staleTime: 60 * 1000,
   });
