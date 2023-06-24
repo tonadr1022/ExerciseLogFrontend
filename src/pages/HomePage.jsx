@@ -5,7 +5,13 @@ import ExerciseCards from "../components/display/ExerciseCards";
 import ViewToggle from "../components/display/ViewToggle";
 import ShoeCards from "../components/display/ShoeCards";
 import { getAllShoes } from "../api/shoesApi";
-import { Grid, Button, Typography } from "@mui/material/";
+import {
+  Grid,
+  Button,
+  Typography,
+  CircularProgress,
+  Box,
+} from "@mui/material/";
 import ExerciseDetailModal from "../components/display/ExerciseDetailModal";
 
 const HomePage = () => {
@@ -56,72 +62,81 @@ const HomePage = () => {
       setView(newView);
     }
   };
-  return status === "loading" ? (
-    <p>Loading...</p>
-  ) : status === "error" ? (
-    <p>Error: {error.message}</p>
-  ) : (
-    <>
-      {shoesIsLoading ? null : shoesIsError ? (
-        <div>
-          <span>{shoesError.message}</span>
-        </div>
+  return (
+    <Box
+      component="main"
+      sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+      <Typography sx={{ margin: 2 }} variant="h4">
+        Feed
+      </Typography>
+      {status === "loading" ? (
+        <CircularProgress />
+      ) : "status" === "error" ? (
+        <p>Error: {error.message}</p>
       ) : (
         <>
-          <Grid container padding={2} spacing={2}>
-            <Grid item xs={12}>
-              <ViewToggle
-                handleChange={handleViewChange}
-                view={view}
-                options={["Exercises", "Shoes"]}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              {view === "Exercises" ? (
-                exerciseData?.pages.map((page, index) => (
-                  <ExerciseCards
-                    key={index}
-                    isPersonal={false}
-                    exerciseData={page.results}
-                    onDetailViewClick={handleDetailClick}
+          {shoesIsLoading ? null : shoesIsError ? (
+            <div>
+              <span>{shoesError.message}</span>
+            </div>
+          ) : (
+            <>
+              <Grid container padding={2} spacing={2}>
+                <Grid item xs={12}>
+                  <ViewToggle
+                    handleChange={handleViewChange}
+                    view={view}
+                    options={["Exercises", "Shoes"]}
                   />
-                ))
-              ) : (
-                <ShoeCards shoeData={shoeData} isPersonal={false} />
-              )}
-            </Grid>
-            {view === "Exercises" ? (
-              <Grid item xs={12}>
-                <Button
-                  fullWidth
-                  variant="contained"
-                  sx={{ height: 100, marginTop: 4, marginBottom: 32 }}
-                  onClick={() => fetchNextPage()}
-                  disabled={!hasNextPage || isFetchingNextPage}>
-                  <Typography variant="h4" textTransform={"none"}>
-                    {isFetchingNextPage
-                      ? "Loading More..."
-                      : hasNextPage
-                      ? "Load More"
-                      : "nothing more"}
-                  </Typography>
-                </Button>
+                </Grid>
+                <Grid item xs={12}>
+                  {view === "Exercises" ? (
+                    exerciseData?.pages.map((page, index) => (
+                      <ExerciseCards
+                        key={index}
+                        isPersonal={false}
+                        exerciseData={page.results}
+                        onDetailViewClick={handleDetailClick}
+                      />
+                    ))
+                  ) : (
+                    <ShoeCards shoeData={shoeData} isPersonal={false} />
+                  )}
+                </Grid>
+                {view === "Exercises" ? (
+                  <Grid item xs={12}>
+                    <Button
+                      fullWidth
+                      variant="contained"
+                      sx={{ height: 100, marginTop: 4, marginBottom: 32 }}
+                      onClick={() => fetchNextPage()}
+                      disabled={!hasNextPage || isFetchingNextPage}>
+                      <Typography variant="h4" textTransform={"none"}>
+                        {isFetchingNextPage
+                          ? "Loading More..."
+                          : hasNextPage
+                          ? "Load More"
+                          : "nothing more"}
+                      </Typography>
+                    </Button>
+                  </Grid>
+                ) : null}
               </Grid>
-            ) : null}
-          </Grid>
-          <Typography variant="h6">
-            {isFetching && !isFetchingNextPage ? "Fetching..." : null}
-          </Typography>
+              <Typography variant="h6">
+                {isFetching && !isFetchingNextPage ? "Fetching..." : null}
+              </Typography>
+            </>
+          )}
+          {exercise && (
+            <ExerciseDetailModal
+              open={detailModalOpen}
+              toggle={() => setDetailModalOpen(!detailModalOpen)}
+              exercise={exercise}
+            />
+          )}
         </>
       )}
-      {exercise && (
-        <ExerciseDetailModal
-          open={detailModalOpen}
-          toggle={() => setDetailModalOpen(!detailModalOpen)}
-          exercise={exercise}
-        />
-      )}
-    </>
+    </Box>
   );
 };
 

@@ -116,6 +116,10 @@ const SummaryChart = ({ exercises, timeFrame }) => {
 
   const handleMetricChange = (event) => {
     const newMetric = event.target.value;
+    if (!newMetric.cumulative) {
+      setIsCumulative(false);
+    }
+
     setMetric(newMetric);
 
     // property map of exercises as they are passed into this component
@@ -150,8 +154,9 @@ const SummaryChart = ({ exercises, timeFrame }) => {
       return val;
     });
 
-    // if cumulative state, accumulate the data for graph
-    if (isCumulative) {
+    // if cumulative state, accumulate the data for graph,
+    // must check newMetric's cumulativity because state doesn't update until rerender
+    if (isCumulative && newMetric.cumulative) {
       setChartData(accumulate(nonCumulativeData));
     } else {
       setChartData(nonCumulativeData);

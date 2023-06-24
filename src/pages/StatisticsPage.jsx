@@ -63,10 +63,7 @@ const StatisticsPage = () => {
             monthStart.toISOString(),
             monthEnd.toISOString(),
             activityType
-          ),
-    {
-      staleTime: 60 * 1000 * 5,
-    }
+          )
   );
 
   const handleTimeFrameChange = (event, newTimeFrame) => {

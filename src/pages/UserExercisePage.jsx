@@ -1,7 +1,7 @@
 import ViewToggle from "../components/display/ViewToggle";
 import { useState } from "react";
 import ExerciseCards from "../components/display/ExerciseCards";
-import { Button, Typography, Box, Grid } from "@mui/material";
+import { Button, Typography, Box, Grid, CircularProgress } from "@mui/material";
 import { RunCircle, AddCircle } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 import ExerciseTable2 from "../components/display/ExerciseTable2";
@@ -92,141 +92,152 @@ export const UserExercisePage = () => {
     editModalToggle();
   };
 
-  return status === "loading" ? (
-    <p>Loading...</p>
-  ) : status === "error" ? (
-    <p>Error: {error.message}</p>
-  ) : (
-    <>
-      {!shoeIsLoading && !shoeIsError && (
+  return (
+    <Box
+      component="main"
+      sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+      <Typography sx={{ margin: 2 }} variant="h4">
+        Exercises
+      </Typography>
+      {status === "loading" ? (
+        <CircularProgress />
+      ) : status === "error" ? (
+        <p>Error: {error.message}</p>
+      ) : (
         <>
-          {exerciseData.length === 0 ? (
-            <Grid
-              container
-              spacing={2}
-              padding={2}
-              sx={{ textAlign: "center" }}>
-              <Grid item xs={12}>
-                <Button
-                  component={Link}
-                  to="/create-exercise"
-                  sx={{ width: "80%" }}
-                  variant="contained"
-                  color="secondary"
-                  startIcon={<RunCircle />}>
-                  Create Exercise
-                </Button>
-              </Grid>
-              <Grid item xs={12}>
-                <Button
-                  component={Link}
-                  to="/create-shoe"
-                  sx={{ width: "80%" }}
-                  variant="contained"
-                  color="secondary"
-                  startIcon={<AddCircle />}>
-                  Create Shoe
-                </Button>
-              </Grid>
-            </Grid>
-          ) : (
+          {!shoeIsLoading && !shoeIsError && (
             <>
-              <Grid container>
+              {exerciseData.length === 0 ? (
                 <Grid
-                  item
-                  xs={12}
-                  sx={{
-                    padding: 4,
-                  }}>
-                  <Button
-                    component={Link}
-                    color="secondary"
-                    to="/create-exercise"
-                    variant="contained"
-                    fullWidth
-                    sx={{
-                      textTransform: "none",
-                    }}>
-                    <Typography variant="h4">Add Exercise</Typography>
-                  </Button>
-                </Grid>
-                <Grid
-                  item
-                  xs={12}
-                  sx={{
-                    pr: 4,
-                    pl: 4,
-                    pb: 2,
-                  }}>
-                  <ViewToggle
-                    handleChange={handleExerciseViewChange}
-                    view={exerciseView}
-                    options={["Card", "Table"]}
-                  />
-                </Grid>
-                <Grid item xs={12} sx={{ padding: 4 }}>
-                  {exerciseView === "Table"
-                    ? tableData && (
-                        // <ExerciseTable2
-                        //   editExercise={editExercise}
-                        //   tableData={tableData}
-                        //   handleExerciseDelete={handleExerciseDelete}
-                        // />
-                        <ExerciseTable3 tableData={tableData.slice(0, 10)} />
-                      )
-                    : exerciseData.pages.map((page, index) => (
-                        <ExerciseCards
-                          key={index}
-                          exerciseData={page.results}
-                          isPersonal={true}
-                          editExercise={editExercise}
-                          handleExerciseDelete={handleExerciseDelete}
-                          onDetailViewClick={handleDetailClick}
-                        />
-                      ))}
-                </Grid>
-                {exerciseView === "Card" && (
+                  container
+                  spacing={2}
+                  padding={2}
+                  sx={{ textAlign: "center" }}>
                   <Grid item xs={12}>
                     <Button
-                      fullWidth
-                      onClick={() => fetchNextPage()}
-                      disabled={!hasNextPage || isFetchingNextPage}>
-                      {isFetchingNextPage
-                        ? "loading more..."
-                        : hasNextPage
-                        ? "Load More"
-                        : "No More Content"}
+                      component={Link}
+                      to="/create-exercise"
+                      sx={{ width: "80%" }}
+                      variant="contained"
+                      color="secondary"
+                      startIcon={<RunCircle />}>
+                      Create Exercise
                     </Button>
                   </Grid>
-                )}
-              </Grid>
-              {editModalOpen && (
-                <EditExerciseModal
-                  open={editModalOpen}
-                  toggle={editModalToggle}
-                  shoeData={shoeData}
-                  exercise={exercise}
-                  updateExercise={updateExercise}
-                />
-              )}
-              <DeleteModal
-                open={deleteModalOpen}
-                toggle={deleteModalToggle}
-                handleConfirm={handleDeleteConfirm}
-                itemType="exercise"
-              />
-              {exercise && (
-                <ExerciseDetailModal
-                  open={detailModalOpen}
-                  toggle={() => setDetailModalOpen(!detailModalOpen)}
-                  exercise={exercise}
-                />
+                  <Grid item xs={12}>
+                    <Button
+                      component={Link}
+                      to="/create-shoe"
+                      sx={{ width: "80%" }}
+                      variant="contained"
+                      color="secondary"
+                      startIcon={<AddCircle />}>
+                      Create Shoe
+                    </Button>
+                  </Grid>
+                </Grid>
+              ) : (
+                <>
+                  <Grid container>
+                    <Grid
+                      item
+                      xs={12}
+                      sx={{
+                        padding: 4,
+                      }}>
+                      <Button
+                        component={Link}
+                        color="secondary"
+                        to="/create-exercise"
+                        variant="contained"
+                        fullWidth
+                        sx={{
+                          textTransform: "none",
+                        }}>
+                        <Typography variant="h4">Add Exercise</Typography>
+                      </Button>
+                    </Grid>
+                    <Grid
+                      item
+                      xs={12}
+                      sx={{
+                        pr: 4,
+                        pl: 4,
+                        pb: 2,
+                      }}>
+                      <ViewToggle
+                        handleChange={handleExerciseViewChange}
+                        view={exerciseView}
+                        options={["Card", "Table"]}
+                      />
+                    </Grid>
+                    <Grid item xs={12} sx={{ padding: 4 }}>
+                      {exerciseView === "Table"
+                        ? tableData && (
+                            // <ExerciseTable2
+                            //   editExercise={editExercise}
+                            //   tableData={tableData}
+                            //   handleExerciseDelete={handleExerciseDelete}
+                            // />
+                            <ExerciseTable3
+                              tableData={tableData.slice(0, 10)}
+                            />
+                          )
+                        : exerciseData.pages.map((page, index) => (
+                            <ExerciseCards
+                              key={index}
+                              exerciseData={page.results}
+                              isPersonal={true}
+                              editExercise={editExercise}
+                              handleExerciseDelete={handleExerciseDelete}
+                              onDetailViewClick={handleDetailClick}
+                            />
+                          ))}
+                    </Grid>
+                    {exerciseView === "Card" && (
+                      <Grid item xs={12}>
+                        <Button
+                          fullWidth
+                          onClick={() => fetchNextPage()}
+                          disabled={!hasNextPage || isFetchingNextPage}>
+                          {isFetchingNextPage
+                            ? "loading more..."
+                            : hasNextPage
+                            ? "Load More"
+                            : "No More Content"}
+                        </Button>
+                      </Grid>
+                    )}
+                  </Grid>
+                  {editModalOpen && (
+                    <EditExerciseModal
+                      open={editModalOpen}
+                      toggle={editModalToggle}
+                      shoeData={shoeData}
+                      exercise={exercise}
+                      updateExercise={updateExercise}
+                    />
+                  )}
+                  <DeleteModal
+                    open={deleteModalOpen}
+                    toggle={deleteModalToggle}
+                    handleConfirm={handleDeleteConfirm}
+                    itemType="exercise"
+                  />
+                  {exercise && (
+                    <ExerciseDetailModal
+                      open={detailModalOpen}
+                      toggle={() => setDetailModalOpen(!detailModalOpen)}
+                      exercise={exercise}
+                    />
+                  )}
+                </>
               )}
             </>
           )}
         </>
       )}
-    </>
+    </Box>
   );
 };
 
