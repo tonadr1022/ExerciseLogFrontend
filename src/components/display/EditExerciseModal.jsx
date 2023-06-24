@@ -25,7 +25,7 @@ import customParseFormat from "dayjs/plugin/customParseFormat";
 import { Modal } from "@mui/material";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { updateExercise } from "../../api/exercisesApi";
-import { unformatPace } from "../../utils/FormatContent";
+import { unformatPace } from "../../utils/formatContent";
 
 const style = {
   display: "flex",
@@ -56,7 +56,6 @@ const EditExerciseModal = ({ open, toggle, exercise, shoeData }) => {
       queryClient.invalidateQueries("all_exercises");
     },
   });
-  console.log(exercise.shoe, exercise.rating);
   const onSubmit = async (data) => {
     const date = dayjs(data.date_started);
     const time = dayjs(data.time_started);

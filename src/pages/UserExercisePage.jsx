@@ -161,8 +161,7 @@ export const UserExercisePage = () => {
                   <ViewToggle
                     handleChange={handleExerciseViewChange}
                     view={exerciseView}
-                    firstOption={"Card"}
-                    secondOption={"Table"}
+                    options={["Card", "Table"]}
                   />
                 </Grid>
                 <Grid item xs={12} sx={{ padding: 4 }}>

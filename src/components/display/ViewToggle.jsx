@@ -9,7 +9,7 @@ const style = {
     borderWidth: "2px",
   },
 };
-const ViewToggle = ({ handleChange, view, firstOption, secondOption }) => {
+const ViewToggle = ({ handleChange, view, options }) => {
   return (
     <ToggleButtonGroup
       color="secondary"
@@ -17,12 +17,11 @@ const ViewToggle = ({ handleChange, view, firstOption, secondOption }) => {
       exclusive
       fullWidth
       onChange={handleChange}>
-      <ToggleButton sx={style} value={firstOption}>
-        {firstOption}
-      </ToggleButton>
-      <ToggleButton sx={style} value={secondOption}>
-        {secondOption}
-      </ToggleButton>
+      {options.map((option) => (
+        <ToggleButton key={option} sx={style} value={option}>
+          {option}
+        </ToggleButton>
+      ))}
     </ToggleButtonGroup>
   );
 };

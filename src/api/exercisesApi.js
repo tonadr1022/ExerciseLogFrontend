@@ -1,6 +1,6 @@
 import axiosInstance from "../axios";
-import { formatPace } from "../utils/FormatContent";
-import { formatDuration } from "../utils/FormatContent";
+import { formatPace } from "../utils/formatContent";
+import { formatDuration } from "../utils/formatContent";
 
 const formatExercises = (exercises) => {
   const formattedExercises = exercises.map((exercise) => {
@@ -15,7 +15,7 @@ const formatExercises = (exercises) => {
     });
     exercise.pace = formatPace(exercise.pace);
     exercise.duration = formatDuration(exercise.duration);
-    delete exercise.datetime_started;
+    exercise.datetime_started;
     return exercise;
   });
   return formattedExercises;
@@ -40,14 +40,26 @@ export const getUserExercises = async () => {
   return response.data;
 };
 
+export const getStatsExercises = async (
+  startDatetime,
+  endDatetime,
+  activityType
+) => {
+  const response = await axiosInstance.get(
+    `summary/?datetime_start=${startDatetime}&datetime_end=${endDatetime}&act_type=${activityType}`
+  );
+  response.data = formatExercises(response.data);
+  return response.data;
+};
+
 export const addExercise = async (exercise) => {
   return await axiosInstance.post("user-exercises/", exercise);
 };
 
 export const updateExercise = async ({ exercise, id }) => {
-  return await axiosInstance.put(`user-exercises/${id}/`, exercise);
+  return await axiosInstance.put(`user-exercises/${id}`, exercise);
 };
 
 export const deleteExercise = async (id) => {
-  return await axiosInstance.delete(`user-exercises/${id}/`, id);
+  return await axiosInstance.delete(`user-exercises/${id}`, id);
 };

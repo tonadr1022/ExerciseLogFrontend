@@ -17,6 +17,7 @@ import LoginPage from "./pages/LoginPage";
 import CreateShoePage from "./pages/CreateShoePage";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import StatisticsPage from "./pages/StatisticsPage";
 
 export const ColorModeContext = createContext({ toggleColorMode: () => {} });
 const queryClient = new QueryClient();
@@ -37,7 +38,7 @@ const App = () => {
         palette: {
           mode,
           background: {
-            default: mode === "light" ? "#f3f3f3" : "#121212", // Background color for light mode
+            default: mode === "light" ? "#f3f3f3" : "#121212",
             paper: mode === "light" ? "#d6d6d6" : "#121212",
           },
           primary: {
@@ -76,6 +77,15 @@ const App = () => {
                     element={
                       <PrivateRoute>
                         <UserExercisePage />
+                      </PrivateRoute>
+                    }
+                  />
+                  <Route
+                    exact
+                    path="/statistics"
+                    element={
+                      <PrivateRoute>
+                        <StatisticsPage />
                       </PrivateRoute>
                     }
                   />

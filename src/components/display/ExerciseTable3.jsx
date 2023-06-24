@@ -157,12 +157,11 @@ const ExerciseTable3 = ({ tableData }) => {
     onColumnVisibilityChange: setColumnVisibility,
     getCoreRowModel: getCoreRowModel(),
   });
-
+  console.log(tableData);
   return (
     <>
       <Grid container>
         {table.getAllLeafColumns().map((column) => {
-          console.log(column);
           return (
             <Grid key={column.id} item xs={2}>
               <FormControlLabel

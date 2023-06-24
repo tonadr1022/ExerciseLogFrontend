@@ -6,15 +6,45 @@ export const formatPace = (pace) => {
 
 export const formatDuration = (duration) => {
   if (duration) {
-    const [hours, minutes, seconds] = duration.split(":");
-    const totalMinutes = parseInt(hours) * 60 + parseInt(minutes);
-    return `${totalMinutes < 10 ? "0" : ""}${totalMinutes}:${seconds}`;
+    let totalMinutes;
+    let totalSeconds;
+    let totalHours;
+    if (typeof duration == "number") {
+      let hours = Math.floor(duration / 60);
+      let minutes = Math.floor(duration % 60);
+      let seconds = Math.floor((duration % 1) * 60);
+      const formattedHours = String(hours).padStart(2, "0");
+      const formattedMinutes = String(minutes).padStart(2, "0");
+      const formattedSeconds = String(seconds).padStart(2, "0");
+      return `${formattedHours}:${formattedMinutes}:${formattedSeconds}`;
+    } else {
+      [totalHours, totalMinutes, totalSeconds] = duration.split(":");
+    }
+    totalMinutes = parseInt(totalHours) * 60 + parseInt(totalMinutes);
+    return `${totalMinutes < 10 ? "0" : ""}${totalMinutes}:${totalSeconds}`;
   } else {
     return "00:00";
+  }
+};
+
+export const unformatDuration = (duration) => {
+  if (duration) {
+    const components = duration.split(":");
+    const minutes = parseFloat(components[0]);
+    const seconds = parseFloat(components[1]);
+    return Math.round((minutes + seconds / 60) * 100) / 100;
+  } else {
+    return 0;
   }
 };
 
 export const unformatPace = (pace) => {
   const paceParts = pace.split(":").map((part) => Number(part));
   return Math.round((paceParts[0] + paceParts[1] / 60) * 10000) / 10000;
+};
+
+export const capitalize = (str) => {
+  firstLetter = str.charAt(0);
+  restWord = str.slice(1);
+  return firstLetter.toUpperCase() + restWord;
 };

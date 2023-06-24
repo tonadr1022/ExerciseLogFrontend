@@ -73,8 +73,7 @@ const HomePage = () => {
               <ViewToggle
                 handleChange={handleViewChange}
                 view={view}
-                firstOption={"Exercises"}
-                secondOption={"Shoes"}
+                options={["Exercises", "Shoes"]}
               />
             </Grid>
             <Grid item xs={12}>

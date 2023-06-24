@@ -22,7 +22,8 @@ const Header = () => {
     const redirectUrl = new URL("https://www.strava.com/oauth/authorize/");
     const params = new URLSearchParams({
       client_id: "103399",
-      redirect_uri: "https://exerciselog-324bd.web.app/",
+      redirect_uri:
+        "https://exercise-log-backend.herokuapp.com/strava/authorization/",
       response_type: "code",
       approval_prompt: "force",
       scope: "read_all,activity:read_all,profile:read_all",
@@ -32,6 +33,7 @@ const Header = () => {
 
     window.location.href = redirectUrl;
   };
+  console.log(user);
   return (
     <>
       <Box sx={{ flexGrow: 1 }}>
@@ -66,18 +68,23 @@ const Header = () => {
                     <AddCircleIcon />
                   </IconButton>
                   <Button to="/my-exercises" component={Link} color="inherit">
-                    My Exercises
+                    Exercises
                   </Button>{" "}
                   <Button to="/my-shoes" component={Link} color="inherit">
-                    My Shoes
+                    Shoes
                   </Button>
-                  <Button onClick={handleRedirect} color="inherit">
-                    Authorize Strava
+                  <Button to="/statistics" component={Link} color="inherit">
+                    statistics
                   </Button>
+                  {!user.strava_authorized && (
+                    <Button onClick={handleRedirect} color="inherit">
+                      Authorize Strava
+                    </Button>
+                  )}
                 </>
               )}
             </Stack>
-            {user && (
+            {/* {user && (
               <Typography
                 variant="h5"
                 component="div"
@@ -85,7 +92,7 @@ const Header = () => {
                 sx={{ marginRight: 4 }}>
                 Hello {user.first_name}
               </Typography>
-            )}
+            )} */}
             {user ? (
               <Button onClick={logoutUser} color="inherit">
                 Logout

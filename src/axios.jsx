@@ -3,7 +3,7 @@ import axios from "axios";
 // import { useContext } from "react";
 
 // const {authTokens} = useContext(AuthContext)
-// const baseURL = "https://exercise-log-backend.herokuapp.com/api/";
+//const baseURL = "https://exercise-log-backend.herokuapp.com/api/";
 const baseURL = "http://127.0.0.1:8000/api/";
 const axiosInstance = axios.create({
   baseURL: baseURL,
