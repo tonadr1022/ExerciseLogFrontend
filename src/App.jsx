@@ -18,6 +18,7 @@ import CreateShoePage from "./pages/CreateShoePage";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import StatisticsPage from "./pages/StatisticsPage";
+import StravaPage from "./pages/StravaPage";
 
 export const ColorModeContext = createContext({ toggleColorMode: () => {} });
 const queryClient = new QueryClient();
@@ -62,62 +63,33 @@ const App = () => {
               <Header />
               <Box sx={{ display: "flex", flexDirection: "column" }}>
                 <Routes>
-                  <Route
-                    exact
-                    path="/"
-                    element={
-                      <PrivateRoute>
-                        <HomePage />
-                      </PrivateRoute>
-                    }
-                  />
-                  <Route
-                    exact
-                    path="/my-exercises"
-                    element={
-                      <PrivateRoute>
-                        <UserExercisePage />
-                      </PrivateRoute>
-                    }
-                  />
-                  <Route
-                    exact
-                    path="/statistics"
-                    element={
-                      <PrivateRoute>
-                        <StatisticsPage />
-                      </PrivateRoute>
-                    }
-                  />
-                  <Route
-                    exact
-                    path="/my-shoes"
-                    element={
-                      <PrivateRoute>
-                        <UserShoesPage />
-                      </PrivateRoute>
-                    }
-                  />
                   <Route exact path="/register" element={<Register />} />
                   <Route exact path="/login" element={<LoginPage />} />
-                  <Route
-                    exact
-                    path="/create-shoe"
-                    element={
-                      <PrivateRoute>
-                        <CreateShoePage />
-                      </PrivateRoute>
-                    }
-                  />
-                  <Route
-                    exact
-                    path="/create-exercise"
-                    element={
-                      <PrivateRoute>
-                        <CreateExercisePage />
-                      </PrivateRoute>
-                    }
-                  />
+                  <Route path="" element={<PrivateRoute />}>
+                    <Route exact path="/" element={<HomePage />} />{" "}
+                    <Route
+                      exact
+                      path="/my-exercises"
+                      element={<UserExercisePage />}
+                    />
+                    <Route
+                      exact
+                      path="/statistics"
+                      element={<StatisticsPage />}
+                    />
+                    <Route exact path="/my-shoes" element={<UserShoesPage />} />
+                    <Route
+                      exact
+                      path="/create-shoe"
+                      element={<CreateShoePage />}
+                    />
+                    <Route
+                      exact
+                      path="/create-exercise"
+                      element={<CreateExercisePage />}
+                    />
+                    <Route exact path="/strava" element={<StravaPage />} />
+                  </Route>
                 </Routes>
               </Box>
               <ReactQueryDevtools />

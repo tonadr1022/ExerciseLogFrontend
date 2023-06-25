@@ -7,14 +7,19 @@ import {
   Popup,
 } from "react-leaflet";
 import { Box } from "@mui/material";
+import { useTheme } from "@emotion/react";
 
 const colors = ["red", "blue", "green", "orange", "black", "purple", "yellow"];
 
 const ExercisesMap = ({ exercises }) => {
+  const theme = useTheme();
   return (
-    <Box sx={{ width: 350, height: 350 }}>
+    <Box sx={{ display: "flex", justifyContent: "center" }}>
       <MapContainer
-        style={{ height: 350, width: 350 }}
+        style={{
+          height: 350,
+          width: 350,
+        }}
         //center={polyline.decode(coordsCombined[0].polyline)[0]}
         center={exercises[0]?.coords ? exercises[0].coords[0] : [44.54, -88.1]}
         zoom={12}>

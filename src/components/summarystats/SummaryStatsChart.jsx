@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Bar } from "react-chartjs-2";
 import { format } from "date-fns";
 import BarChart from "./BarChart";
+import { Box } from "@mui/material";
 const SummaryStatsChart = ({ timeFrame, data }) => {
   const [chartData, setChartData] = useState(null);
   const [options, setOptions] = useState(null);

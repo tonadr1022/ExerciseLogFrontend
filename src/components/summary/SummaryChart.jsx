@@ -6,9 +6,9 @@ import {
   Checkbox,
   FormGroup,
   FormControlLabel,
-  InputLabel,
   Select,
   MenuItem,
+  Box,
 } from "@mui/material";
 import { accumulate, decumulate } from "../../utils/arrayUtils";
 import {
@@ -168,7 +168,8 @@ const SummaryChart = ({ exercises, timeFrame }) => {
   );
 
   return (
-    <>
+    <Box
+      sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
       <LineChart
         chartData={chartData}
         metric={metric}
@@ -176,19 +177,18 @@ const SummaryChart = ({ exercises, timeFrame }) => {
         timeFrame={timeFrame}
         isCumulative={isCumulative}
       />
-      <>
-        <Select
-          labelId="metric-label"
-          defaultValue={graphMetrics[0]}
-          onChange={handleMetricChange}
-          value={metric}>
-          {graphMetrics.map((metric, i) => (
-            <MenuItem key={i} value={metric}>
-              {metric.text}
-            </MenuItem>
-          ))}
-        </Select>
-      </>
+      <Select
+        labelId="metric-label"
+        defaultValue={graphMetrics[0]}
+        onChange={handleMetricChange}
+        value={metric}>
+        {graphMetrics.map((metric, i) => (
+          <MenuItem key={i} value={metric}>
+            {metric.text}
+          </MenuItem>
+        ))}
+      </Select>
+
       <FormGroup>
         <FormControlLabel
           control={
@@ -201,7 +201,7 @@ const SummaryChart = ({ exercises, timeFrame }) => {
           label="Cumulative"
         />
       </FormGroup>
-    </>
+    </Box>
   );
 };
 

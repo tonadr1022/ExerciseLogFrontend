@@ -1,3 +1,4 @@
+import { Box } from "@mui/material";
 import {
   Chart as ChartJS,
   Tooltip,
@@ -56,9 +57,9 @@ const LineChart = ({ chartData, metric, labels, timeFrame, isCumulative }) => {
   };
 
   return (
-    <>
+    <Box style={{ display: "flex", justifyContent: "center", width: "70%" }}>
       <Line options={options} data={data} />
-    </>
+    </Box>
   );
 };
 
