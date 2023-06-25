@@ -3,7 +3,16 @@ export const formatPace = (pace) => {
   const seconds = Math.round((pace % 1) * 60);
   return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
 };
-
+export const toDurationStringFromSeconds = (duration) => {
+  const days = parseFloat(duration) / 24 / 3600;
+  const hours = (days % 1) * 24;
+  const minutes = (hours % 1) * 60;
+  let durationStr = "";
+  if (days > 0) durationStr += `${Math.floor(days)} days, `;
+  durationStr += `${Math.floor(hours)} hrs`;
+  if (days === 0) duration += `, ${Math.floor(minutes)} min`;
+  return durationStr;
+};
 export const formatDuration = (duration) => {
   if (duration) {
     let totalMinutes;

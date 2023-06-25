@@ -68,67 +68,6 @@ const Header = () => {
 
   return (
     <>
-      {/* <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="sticky" component="header">
-          <Toolbar component="nav">
-            <Tooltip title="Home">
-              <IconButton
-                to="/"
-                component={Link}
-                size="large"
-                edge="start"
-                color="inherit">
-                <DirectionsRunIcon />
-              </IconButton>
-            </Tooltip>
-            <Typography
-              variant="h5"
-              component="div"
-              noWrap
-              sx={{ marginRight: 4 }}>
-              Exercise Log
-            </Typography>
-            <Stack direction="row" spacing={2} sx={{ flexGrow: 1 }}>
-              {user && (
-                <>
-                  <IconButton
-                    to="/create-exercise"
-                    component={Link}
-                    size="large"
-                    edge="start"
-                    color="inherit">
-                    <AddCircleIcon />
-                  </IconButton>
-                  <Button to="/my-exercises" component={Link} color="inherit">
-                    Exercises
-                  </Button>{" "}
-                  <Button to="/my-shoes" component={Link} color="inherit">
-                    Shoes
-                  </Button>
-                  <Button to="/statistics" component={Link} color="inherit">
-                    statistics
-                  </Button>
-                  {!user.strava_authorized && (
-                    <Button onClick={handleRedirect} color="inherit">
-                      Authorize Strava
-                    </Button>
-                  )}
-                </>
-              )}
-            </Stack>
-            {user ? (
-              <Button onClick={logoutUser} color="inherit">
-                Logout
-              </Button>
-            ) : (
-              <Button to="/login" component={Link} color="inherit">
-                Login
-              </Button>
-            )}
-            <ThemeToggle />
-          </Toolbar>
-        </AppBar>
-      </Box> */}
       <Box sx={{ flexGrow: 1 }}>
         <AppBar position="sticky" component="header">
           <Toolbar component="nav">
@@ -189,20 +128,14 @@ const Header = () => {
                     component={Link}
                     to="/statistics"
                     onClick={handleCloseNavMenu}>
-                    <Typography textAlign="center">Statistics</Typography>
-                  </MenuItem>
-                  {/* <MenuItem
-                    component={Link}
-                    to="/about"
-                    onClick={handleCloseNavMenu}>
-                    <Typography textAlign="center">About</Typography>
+                    <Typography textAlign="center">Stats</Typography>
                   </MenuItem>
                   <MenuItem
                     component={Link}
-                    to="/help"
+                    to="/summary-statistics"
                     onClick={handleCloseNavMenu}>
-                    <Typography textAlign="center">Help</Typography>
-                  </MenuItem> */}
+                    <Typography textAlign="center">Summary Stats</Typography>
+                  </MenuItem>
                 </Menu>
               </Box>
             )}
@@ -222,35 +155,11 @@ const Header = () => {
                 <DirectionsRunIcon />
               </IconButton>
             </Tooltip>
-            {/* <Typography
-              variant="h4"
-              noWrap
-              href="/"
-              component="h4"
-              sx={{
-                flexGrow: 1,
-                mr: 2,
-                display: { xs: "flex", md: "none" },
-                fontFamily: "monospace",
-                fontWeight: 300,
-                color: "inherit",
-                textDecoration: "none",
-              }}>
-              Track Me
-            </Typography> */}
             {user && (
               <Box
                 sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}
                 spacing={2}>
                 <>
-                  {/* <IconButton
-                    to="/create-exercise"
-                    component={Link}
-                    size="large"
-                    edge="start"
-                    color="inherit">
-                    <AddCircleIcon />
-                  </IconButton> */}
                   <Button to="/my-exercises" component={Link} color="inherit">
                     Exercises
                   </Button>
@@ -259,6 +168,12 @@ const Header = () => {
                   </Button>
                   <Button to="/statistics" component={Link} color="inherit">
                     Stats
+                  </Button>
+                  <Button
+                    to="/summary-statistics"
+                    component={Link}
+                    color="inherit">
+                    Stats by year
                   </Button>
                   {!user.strava_authorized && (
                     <Button onClick={handleRedirect} color="inherit">

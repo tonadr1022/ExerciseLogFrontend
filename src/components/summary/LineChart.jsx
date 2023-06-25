@@ -18,7 +18,6 @@ const LineChart = ({ chartData, metric, labels, timeFrame, isCumulative }) => {
     LineElement,
     Title
   );
-  console.log(chartData, "dat");
   const unitLabel =
     isCumulative && metric?.cumulativeUnit
       ? " (" + metric.cumulativeUnit + ")"

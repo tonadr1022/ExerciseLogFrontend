@@ -40,7 +40,14 @@ export const getUserExercises = async () => {
   return response.data;
 };
 
-export const getStatsExercises = async (
+export const getExerciseStats = async (year, timeInterval, activityType) => {
+  const response = await axiosInstance.get(
+    `stats/?act_type=${activityType}&year=${year}&time_interval=${timeInterval}`
+  );
+  return response.data;
+};
+
+export const getExercisesByTimeInterval = async (
   startDatetime,
   endDatetime,
   activityType

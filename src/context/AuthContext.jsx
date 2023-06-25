@@ -61,8 +61,8 @@ export const AuthProvider = ({ children }) => {
 
     try {
       const response = await axios.post(
-        //"https://exercise-log-backend.herokuapp.com/api/token/refresh/",
-        "http://127.0.0.1:8000/api/token/refresh/",
+        "https://exercise-log-backend.herokuapp.com/api/token/refresh/",
+        //"http://127.0.0.1:8000/api/token/refresh/",
         { refresh: authTokens?.refresh },
         {
           headers: {
